@@ -16,6 +16,7 @@ export default class App extends Component {
                <Route exact path="/" component={Home} />
                <Route path="/login" component={Login} />
                <Route path="/ticket" component={Ticket}/>
+               <Route exact path="*" component={() => "404 NOT FOUND"} />
              </Switch>
            </div>
          </Router>
