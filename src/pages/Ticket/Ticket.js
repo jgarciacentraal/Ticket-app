@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Nav from '../commons/Nav/Nav';
 //import Footer from './commons/footer.compo';
 
 export default class Ticket extends Component {
   constructor() {
     super();
     this.state = {
-      user_id: '',
-      title: '',
-      message: '',
+      user_id: "",
+      title: "",
+      message: "",
       tickets: [],
-      _id: '',
+      _id: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.sendTicket = this.sendTicket.bind(this);
@@ -20,37 +19,37 @@ export default class Ticket extends Component {
   sendTicket = (e) => {
     if (this.state._id) {
       fetch(`http://localhost:3005/api/tickets/${this.state._id}`, {
-        method: 'PUT',
+        method: "PUT",
         body: JSON.stringify(this.state),
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           this.setState({
-            user_id: '',
-            title: '',
-            message: '',
-            _id: '',
+            user_id: "",
+            title: "",
+            message: "",
+            _id: "",
           });
           this.getTicket();
         });
     } else {
-      fetch('http://localhost:3005/api/tickets', {
-        method: 'POST',
+      fetch("http://localhost:3005/api/tickets", {
+        method: "POST",
         body: JSON.stringify(this.state),
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          this.setState({ user_id: '', title: '', message: '' });
+          this.setState({ user_id: "", title: "", message: "" });
           this.getTicket();
         })
         .catch((err) => console.error(err));
@@ -63,7 +62,7 @@ export default class Ticket extends Component {
   };
 
   getTicket = (e) => {
-    fetch('http://localhost:3005/api/tickets')
+    fetch("http://localhost:3005/api/tickets")
       .then((res) => res.json())
       .then((data) => {
         this.setState({ tickets: data });
@@ -87,10 +86,10 @@ export default class Ticket extends Component {
 
   deleteTicket(id) {
     fetch(`http://localhost:3005/api/tickets/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
@@ -111,8 +110,6 @@ export default class Ticket extends Component {
   render() {
     return (
       <div>
-        <Nav />
-
         <div className="container">
           <div className="row pt-5">
             <div className="col-md-4">
@@ -183,7 +180,7 @@ export default class Ticket extends Component {
                         <td>{ticket.message}</td>
                         <td>
                           <button
-                            style={{ margin: '5px' }}
+                            style={{ margin: "5px" }}
                             onClick={() => this.editTicket(ticket._id)}
                           >
                             Edit

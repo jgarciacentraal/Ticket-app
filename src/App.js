@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import * as React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Login from './components/Login/Login';
-import Ticket from './components/Ticket/Ticket';
-import Home from './pages/Home';
+import Login from "./pages/Login/Login";
+import Ticket from "./pages/Ticket/Ticket";
 
-export default class App extends Component {
-  render() {
-    return (
+import { Nav } from "components/Nav/Nav";
+
+export default function App() {
+  return (
+    <>
+      <Nav />
+
       <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/ticket" component={Ticket} />
-            <Route exact path="*" component={() => '404 NOT FOUND'} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route path="/" component={Login} />
+          <Route path="/ticket" component={Ticket} />
+          <Route exact path="*" component={() => "404 NOT FOUND"} />
+        </Switch>
       </Router>
-    );
-  }
+    </>
+  );
 }
