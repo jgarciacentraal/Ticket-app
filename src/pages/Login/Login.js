@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-import { getToken } from '../../services/userServices';
-import Auth from '../../helper/Auth';
-
-import Nav from '../commons/Nav/Nav';
+import { getToken } from "../../services/userServices";
+import Auth from "../../helper/Auth";
 
 const style = {
-  marginTop: '200px',
-  boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.10)',
-  borderRadius: '8px 8px 8px 8px',
-  overflow: 'hidden',
-  width: '400px',
-  height: '320px',
+  marginTop: "200px",
+  boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.10)",
+  borderRadius: "8px 8px 8px 8px",
+  overflow: "hidden",
+  width: "400px",
+  height: "320px",
 };
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       error: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -42,7 +40,7 @@ export default class Login extends Component {
           error: false,
         });
         Auth.login(data, () => {
-          this.props.history.push('/ticket');
+          this.props.history.push("/ticket");
         });
       }
     });
@@ -59,11 +57,9 @@ export default class Login extends Component {
     return (
       /* Nav */
       <div>
-        <Nav />
-
         <form>
           <div className="container" style={style}>
-            <div style={{ margin: '25px', textAlign: 'center' }}>
+            <div style={{ margin: "25px", textAlign: "center" }}>
               <h4 className="font-weight-bold mb-2 text-muted">
                 Acceda con su Usuario
               </h4>
