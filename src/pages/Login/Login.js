@@ -58,39 +58,31 @@ export default class Login extends Component {
       /* Nav */
       <div>
         <form>
-          <div className="container" style={style}>
-            <div style={{ margin: "25px", textAlign: "center" }}>
-              <h4 className="font-weight-bold mb-2 text-muted">
-                Acceda con su Usuario
-              </h4>
-            </div>
-            <div className="form-group">
+          <div style={style}>
+            <h4 style={{ margin: "25px", textAlign: "center" }}>
+              Acceda con su Usuario
+            </h4>
+            <div>
               <input
                 type="email"
-                className="form-control"
                 placeholder="Email"
                 name="email"
                 value={this.state.email}
                 onChange={this.handleChange}
               />
             </div>
-            <div className="form-group">
+            <div>
               <input
                 type="password"
-                className="form-control"
                 placeholder="Password"
                 name="password"
                 value={this.state.password}
                 onChange={this.handleChange}
               />
             </div>
-            <div className="form-group">
+            <div>
               <Link to="/ticket">
-                <button
-                  className="btn btn-outline-primary"
-                  type="submit"
-                  onClick={this.authUser}
-                >
+                <button type="submit" onClick={this.authUser}>
                   Ingresar
                 </button>
               </Link>
