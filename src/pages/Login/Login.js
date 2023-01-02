@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import * as React from "react";
 
-import { getToken } from "../../services/userServices";
-import Auth from "../../helper/Auth";
+const box_style = {
+  display: 'flex',
+  justifyContent: 'center'
+}
 
 const style = {
   marginTop: "200px",
@@ -13,18 +14,22 @@ const style = {
   height: "320px",
 };
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-      error: false,
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+const fields_styles = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-around',
 
-  authUser = (e) => {
+}
+
+export default function Login() {
+  const [form, setForm] = React.useState({
+    email: "",
+    password: "",
+    error: false,
+  })
+
+
+  /* authUser = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
     getToken({
@@ -44,52 +49,44 @@ export default class Login extends Component {
         });
       }
     });
-  };
+  }; */
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({
+    setForm({
       [name]: value,
     });
   };
 
-  render() {
+
     return (
-      /* Nav */
-      <div>
+      <div style={box_style}>
         <form>
           <div style={style}>
             <h4 style={{ margin: "25px", textAlign: "center" }}>
               Acceda con su Usuario
             </h4>
-            <div>
+            <div style={fields_styles}>
               <input
                 type="email"
                 placeholder="Email"
                 name="email"
-                value={this.state.email}
-                onChange={this.handleChange}
+                value={form.email}
+                onChange={handleChange}
               />
-            </div>
-            <div>
               <input
                 type="password"
                 placeholder="Password"
                 name="password"
-                value={this.state.password}
-                onChange={this.handleChange}
+                value={form.password}
+                onChange={handleChange}
               />
-            </div>
-            <div>
-              <Link to="/ticket">
-                <button type="submit" onClick={this.authUser}>
-                  Ingresar
-                </button>
-              </Link>
+              <button type="submit" onClick={() => {}}>
+                Ingresar
+              </button>
             </div>
           </div>
         </form>
       </div>
     );
-  }
 }
