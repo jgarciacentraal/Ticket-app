@@ -1,0 +1,8 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-modules",
+		"@babel/preset-react"
+    // other presets if any
+  ]
+}

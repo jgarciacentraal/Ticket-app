@@ -1,92 +1,79 @@
 import * as React from "react";
-
-const box_style = {
-  display: 'flex',
-  justifyContent: 'center'
-}
-
-const style = {
-  marginTop: "200px",
-  boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.10)",
-  borderRadius: "8px 8px 8px 8px",
-  overflow: "hidden",
-  width: "400px",
-  height: "320px",
-};
-
-const fields_styles = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-
-}
+import { useNavigate } from "react-router-dom";
+import {
+  container,
+  formStyled,
+  fieldsStyles,
+  titleStyled,
+  buttonStyled,
+  errorFormStyled,
+} from "./styles";
+import { authPromise } from "services/authService";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [errorForm, setErrorForm] = React.useState("");
+
   const [form, setForm] = React.useState({
     email: "",
     password: "",
-    error: false,
-  })
+  });
 
+  const handleSubmitLogin = async () => {
+    if (!form.email && !form.password) {
+      alert("Fill the fields!!");
+      return;
+    }
 
-  /* authUser = (e) => {
-    e.preventDefault();
-    const { email, password } = this.state;
-    getToken({
-      email,
-      password,
-    }).then((data) => {
-      if (data.success === false) {
-        this.setState({
-          error: true,
-        });
-      } else {
-        this.setState({
-          error: false,
-        });
-        Auth.login(data, () => {
-          this.props.history.push("/ticket");
-        });
-      }
-    });
-  }; */
+    try {
+      const { response } = await authPromise(form);
+      navigate(response?.path);
+      setErrorForm("");
+    } catch (err) {
+      setErrorForm(err?.message);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({
+    setForm((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   };
 
+  return (
+    <div style={container}>
+      <div style={formStyled}>
+        <h1 style={titleStyled}>Acceda con su Usuario</h1>
+        <div style={fieldsStyles}>
+          <input
+            type="email"
+            placeholder="Usuario"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+          />
+          <button
+            type="submit"
+            style={buttonStyled}
+            onClick={handleSubmitLogin}
+          >
+            Ingresar
+          </button>
 
-    return (
-      <div style={box_style}>
-        <form>
-          <div style={style}>
-            <h4 style={{ margin: "25px", textAlign: "center" }}>
-              Acceda con su Usuario
-            </h4>
-            <div style={fields_styles}>
-              <input
-                type="email"
-                placeholder="Email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-              />
-              <button type="submit" onClick={() => {}}>
-                Ingresar
-              </button>
-            </div>
+          <div>
+            <span style={errorFormStyled}>{errorForm}</span>
           </div>
-        </form>
+        </div>
       </div>
-    );
+    </div>
+  );
 }
